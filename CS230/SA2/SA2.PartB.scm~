@@ -1,0 +1,42 @@
+(require racket/base)
+
+(define recmultiply
+  (lambda ((a <number>) (b <integer>))
+    (cond ((zero? b) 0)
+          ((odd? b)
+           (+ a (multiply (+ a a) (quotient b 2))))
+          (else
+           (multiply (+ a a) (quotient b 2))))))
+
+
+(define times-1 
+  (lambda ((a <number>) (b <integer>))
+    (if (= b 0) 
+        0
+        (+ a (times-1 a (- b 1)))))) 
+
+(define times-2
+  (lambda ((a <real>) (b <integer>))
+    (letrec ((iter
+              (lambda (c result)
+                (if (= c 0)
+                    result
+                    (iter (- c 1)
+                          (+ result a))))))
+      (iter b 0))))
+
+(define itermultiply
+  (lambda ((a <number>) (b <integer>))
+    (letrec ((iter
+              (lambda (c result)
+                (cond ((zero? c) result)
+                      ((odd? c)
+                       (if (= c 1)
+                           (iter (quotient c 2)
+                                 (+ result a))
+                           (iter (quotient c 2)
+                                 (+ result a a))))
+                      (else
+                       (iter (quotient c 2)
+                             (+ result a)))))))
+      (iter b 0))))

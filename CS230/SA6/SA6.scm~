@@ -1,0 +1,12 @@
+;;; Jason Wang jsw50
+;;; SA6
+
+(require racket/base)
+
+(define reverse
+  (lambda ((l <list>))
+    (cond
+      ((null? l) '())
+      (else
+       (append (reverse (cdr l)) (list (first l)))))))
+       
